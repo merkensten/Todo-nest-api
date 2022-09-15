@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+
 import { NewUserDto } from 'src/user/dtos/new-user.dto';
 import { ExistingUserDto } from 'src/user/dtos/existing-user.dto';
 import { UserDetails } from 'src/user/interface/user-details.interface';
