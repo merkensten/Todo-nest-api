@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -43,11 +43,14 @@ export class TodoService {
     const todo = await this.todoModel.findById(todoId);
 
     if (!todo) {
-      return 'Todo not found';
+      throw new HttpException('Todo Not Found', HttpStatus.NOT_FOUND);
     }
 
     if (todo.user.toString() !== userId) {
-      return 'You are not authorized to update this todo';
+      throw new HttpException(
+        'You are not authorized to update this todo',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     return this.todoModel.deleteOne({ _id: todoId }).exec();
